@@ -15,7 +15,21 @@ module.exports === function(app) {
 
 	// create todo and send back all todos after creation
 	app.post('/api/todos', function(req, res) {
-		
+		// get and check if that is more than 10 records.
+		Todo.find (function (err, results) {
+			if (err) 
+				res.send (err);
+			//var obj = JSON.parse(results);
+			console.log(results.length);
+			if (results.length > 10) {
+				console.log(results);
+				var jsonResult = {
+					status: "FAIL",
+					msg:"No more 10 Todos!"
+				};
+				res.json (jsonResult);
+			}
+		});
 		// create a todo, information comes from AJAX request from Angular
 		Todo.create({
 			text : req.body.text,
