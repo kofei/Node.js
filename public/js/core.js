@@ -19,6 +19,9 @@ function mainController($scope, $http) {
 				.success(function(data) {
 					$scope.formData = {};				// clear the form so our user is ready to enter another
 					$scope.todos = data;
+					if (data.status == "FAIL") {
+						alert (data.mag);
+					}
 					console.log(data);
 				})
 				.err(function(data) {
